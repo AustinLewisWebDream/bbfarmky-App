@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 import '../cart.dart';
 
 class ProductsRoute extends StatefulWidget {
+  final Sort sortBy;
+  ProductsRoute({this.sortBy});
   @override
   State<StatefulWidget> createState() {
-    return _ProductsRoute();
+    return _ProductsRoute(sortBy);
   }
 }
 
@@ -17,55 +19,51 @@ class _ProductsRoute extends State<ProductsRoute> {
   bool showOrderButton = false;
   int numItems;
   List<Product> products;
-  dynamic _value = Sort.name;
   bool loading = true;
+  Sort sortBy;
+ _ProductsRoute(this.sortBy);
+  
+
   @override
   void initState() {
     super.initState();
     notifyCartChange();
-    loadProducts();
+    loadProducts(sortBy);
   }
 
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      products = Products.sortedProducts;
-    });
     return Scaffold(
         floatingActionButton: buildChildren(context),
         appBar: AppBar(
           title: Text('Products'),
           actions: <Widget>[
-            // Center(
-            //   child: Container(
-            //     margin: EdgeInsets.only(right: 15),
-            //     child: Row(
-            //       children: <Widget>[
-            //         Container(
-            //             margin: EdgeInsets.only(right: 10),
-            //             child: Text('Sort By: ')),
-            //         DropdownButton(
-            //           value: _value,
-            //           hint: Text('Sort'),
-            //           items: <DropdownMenuItem>[
-            //             DropdownMenuItem(value: Sort.name, child: Text('Name')),
-            //             DropdownMenuItem(
-            //               value: Sort.availability,
-            //               child: Text('Availability'),
-            //             ),
-            //           ],
-            //           onChanged: (value) {
-            //             setState(() {
-            //               _value = value;
-            //               products = Products.sortBy(value);
-            //               products.forEach((product) => print(product.name));
-            //             });
-            //           },
-            //         )
-            //       ],
-            //     ),
-            //   ),
-            // )
+            Center(
+              child: Container(
+                margin: EdgeInsets.only(right: 15),
+                child: Row(
+                  children: <Widget>[
+                    DropdownButton(
+                      value: sortBy,
+                      hint: Text('Sort'),
+                      items: <DropdownMenuItem>[
+                        DropdownMenuItem(value: Sort.name, child: Text('Name', style: TextStyle(color: Color.fromRGBO(252, 172, 25, 1)))),
+                        DropdownMenuItem(
+                          value: Sort.availability,
+                          child: Text('Availability', style: TextStyle(color: Color.fromRGBO(252, 172, 25, 1)),),
+                        ),
+                      ],
+                      onChanged: (value) {
+                        setState(() {
+                          sortBy = value;
+                        });
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => ProductsRoute(sortBy: sortBy,)));
+                      },
+                    )
+                  ],
+                ),
+              ),
+            )
           ],
         ),
         body: Container(
@@ -104,10 +102,10 @@ class _ProductsRoute extends State<ProductsRoute> {
       return null;
   }
 
-  void loadProducts() {
-    Products.fetchProducts().then((products) {setState(() {
+  void loadProducts(Sort sortBy) {
+    Products.fetchProducts(sortBy).then((products) {setState(() {
      loading = false;
-     this.products = products.products; 
+     this.products = products.sortedProducts; 
     });});
   }
 

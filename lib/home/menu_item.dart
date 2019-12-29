@@ -14,6 +14,7 @@ class MenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     return Container(
       margin: EdgeInsets.all(10.0),
       alignment: Alignment.center,
@@ -31,10 +32,15 @@ class MenuItem extends StatelessWidget {
               },
               child: Column(
                 children: <Widget>[
-                  Image.asset(
-                    imagePath,
-                    height: 50.0,
-                    width: 50.0,
+                  Container(
+                    constraints: BoxConstraints.expand(
+                      height: height/15,
+                      width: height/15,
+                    ),
+                    child: Image.asset(
+                      imagePath,
+                      fit: BoxFit.scaleDown
+                    ),
                   ),
                   Center(
                       child: Container(

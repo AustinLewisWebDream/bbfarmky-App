@@ -103,37 +103,49 @@ class ItemList {
 class ScheduleItemWidget extends StatelessWidget {
   final ScheduleItem item;
 
+  // Vars - item.formattedTime, date, location
+
   ScheduleItemWidget({this.item});
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          border: Border(bottom: BorderSide(color: Colors.black, width: .5))),
-      child: Padding(
-        padding: const EdgeInsets.all(15.0),
+    return GestureDetector(
+          onTap: () {
+            print('Tapped');
+          },
+          child: Card(
+        color: Colors.white,
+        margin: EdgeInsets.all(5.0),
         child: Container(
+          margin: EdgeInsets.all(10.0),
+
           child: Row(
             children: <Widget>[
               Expanded(
                 flex: 4,
-                child: Container(
-                  child: Text(
-                    item.date,
-                    style: Theme.of(context).textTheme.subtitle,
-                  ),
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                        margin: EdgeInsets.all(5.0),
+                        child: Text(
+                          item.date,
+                          style: TextStyle(fontSize: 15.0),
+                        )),
+                    Container(
+                        margin: EdgeInsets.all(5.0),
+                        child: Text(item.formattedTime,
+                            style: TextStyle(fontSize: 11.0))),
+                  ],
                 ),
               ),
               Expanded(
                 flex: 3,
-                child: Container(
-                  alignment: Alignment.center,
-                  child: Text(item.formattedTime),
-                ),
-              ),
-              Expanded(
-                flex: 3,
-                child: Container(
-                  child: Text(item.location),
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                        margin: EdgeInsets.all(5.0),
+                        child: Text(item.location,
+                            style: TextStyle(fontSize: 11.0))),
+                  ],
                 ),
               ),
             ],

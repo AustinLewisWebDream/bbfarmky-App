@@ -1,4 +1,4 @@
-package com.example.bbfarmky;
+package com.bbfarmky.app;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

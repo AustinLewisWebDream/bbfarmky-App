@@ -10,9 +10,7 @@ class Order {
   var data;
   
   Order({this.customerName, this.products, this.contactInfo}){
-
     var productList = [];
-
 
     products.forEach((k, v) => {productList.add({"id": k, "quantity": v})});
     print(productList.toString());

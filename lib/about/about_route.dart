@@ -18,7 +18,7 @@ class AboutRoute extends StatelessWidget {
             Container(
               margin: EdgeInsets.all(10.0),
               child: Text(
-                  "Bluegrass Blessings Farms & Apiary as a veteran-owned and naturally grown farm located in Lebanon, KY. We are a small family owned and operated farm working hard to produce the healthiest, tastiest, most environmentally sustainable products possible, while bolstering the local community and local business. Our passion is our honeybees and their well-being however weoffer many other farm products for your enjoyment and your family's nutrition. Our main categories of products are: ", style: TextStyle(color: Color.fromRGBO(252, 172, 25, 1))),
+                  "Bluegrass Blessings Farms & Apiary as a veteran-owned and naturally grown farm located in Lebanon, KY. We are a small family owned and operated farm working hard to produce the healthiest, tastiest, most environmentally sustainable products possible, while bolstering the local community and local business. Our passion is our honeybees and their well-being however we offer many other farm products for your enjoyment and your family's nutrition. Our main categories of products are: ", style: TextStyle(color: Color.fromRGBO(252, 172, 25, 1))),
             ),
             Container(
               margin: EdgeInsets.all(5.0),
@@ -86,29 +86,32 @@ class AboutRoute extends StatelessWidget {
                         child: Center(
                             child: Container(
                                 
-                          child: Column(
-                            children: <Widget>[
-                              Text('Bluegrass Blessings Farms & Apiary',
-                                  style: TextStyle(
-                                      color: Color.fromRGBO(4, 116, 188, 1),
-                                      fontSize: 12)),
-                              Text('680 Tucker Road',
-                                  style: TextStyle(
-                                      color: Color.fromRGBO(4, 116, 188, 1),
-                                      fontSize: 12)),
-                              Text('Lebanon, KY 40033',
-                                  style: TextStyle(
-                                      color: Color.fromRGBO(4, 116, 188, 1),
-                                      fontSize: 12)),
-                              Text('(502) 600-1004',
-                                  style: TextStyle(
-                                      color: Color.fromRGBO(4, 116, 188, 1),
-                                      fontSize: 12)),
-                              Text('www.bbfarmky.com',
-                                  style: TextStyle(
-                                      color: Color.fromRGBO(4, 116, 188, 1),
-                                      fontSize: 12)),
-                            ],
+                          child: FittedBox(
+                            fit: BoxFit.fitWidth,
+                                                      child: Column(
+                              children: <Widget>[
+                                Text('Bluegrass Blessings Farms & Apiary',
+                                    style: TextStyle(
+                                        color: Color.fromRGBO(4, 116, 188, 1),
+                                        fontSize: 12)),
+                                Text('680 Tucker Road',
+                                    style: TextStyle(
+                                        color: Color.fromRGBO(4, 116, 188, 1),
+                                        fontSize: 12)),
+                                Text('Lebanon, KY 40033',
+                                    style: TextStyle(
+                                        color: Color.fromRGBO(4, 116, 188, 1),
+                                        fontSize: 12)),
+                                Text('(502) 600-1004',
+                                    style: TextStyle(
+                                        color: Color.fromRGBO(4, 116, 188, 1),
+                                        fontSize: 12)),
+                                Text('www.bbfarmky.com',
+                                    style: TextStyle(
+                                        color: Color.fromRGBO(4, 116, 188, 1),
+                                        fontSize: 12)),
+                              ],
+                            ),
                           ),
                         ))),
                     Expanded(

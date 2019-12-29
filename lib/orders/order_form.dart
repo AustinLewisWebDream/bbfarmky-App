@@ -25,6 +25,7 @@ void dispose() {
 class _OrderForm extends State<OrderForm> {
   final _formKey = GlobalKey<FormState>();
   final Cart cart = new Cart();
+  bool error = false;
 
   @override
   Widget build(BuildContext context) {
@@ -64,13 +65,13 @@ class _OrderForm extends State<OrderForm> {
                       // the form is invalid.
                       if (_formKey.currentState.validate()) {
                         createOrder();
-
                       }
                     },
                     child: Text('Submit'),
                   ),
                 ),
               ),
+              error ? Container(alignment: Alignment.center, color: Colors.redAccent ,padding: EdgeInsets.all(10) ,child: Text('Something went wrong...', style: TextStyle(color: Colors.white),)) : Container(height: 0, width: 0)
             ],
           ),
         ),
@@ -86,22 +87,22 @@ class _OrderForm extends State<OrderForm> {
 
     print(json.toString());
 
-
     Response response =
-        await post('https://www.bbfarmky.com/app/order',
-            headers: {
-              HttpHeaders.authorizationHeader: 'Bearer vE9LqElUzA',
-              'Content-Type': 'application/json'
-            },
-            body: json);
+        await post('https://www.bbfarmky.com/order', headers: {HttpHeaders.contentTypeHeader: 'application/json'}, body: json);
+        print(response.statusCode.toString());
 
     if (response.statusCode == 200) {
       cart.empty();
+      setState(() {
+       error = false; 
+      });
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => CompleteRoute()));
     } else {
-      // TODO: Better error handling
       print('Error submitting order');
+      setState(() {
+       error = true; 
+      });
     }
   }
 }

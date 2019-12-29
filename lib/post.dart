@@ -7,9 +7,11 @@ enum Sort { name, availability }
 
 class Products {
   List<Product> products = [];
-  static List<Product> sortedProducts = [];
+  List<Product> sortedProducts = [];
 
-  Products.fromJson(String jsonStr) {
+  Products.fromJson(String jsonStr, Sort algorithm) {
+    products = [];
+    sortedProducts = [];
     final _map = jsonDecode(jsonStr);
     final _productsList = _map['records'];
     for (var i = 0; i < (_productsList.length); i++) {
@@ -18,28 +20,27 @@ class Products {
         products.add(newProduct);
         sortedProducts.add(newProduct);
       }
-      sortBy(Sort.name);
     }
+    sortBy(algorithm);
   }
   
-  static Future<Products> fetchProducts() async {
+  static Future<Products> fetchProducts(sort) async {
     final response = await get(
         'https://api.airtable.com/v0/apptzTgBGMlsWmAE4/Products?maxRecords=100&view=Grid%20view',
         headers: {HttpHeaders.authorizationHeader: 'Bearer keyeIMUytOcC820fT'});
     if (response.statusCode == 200) {
-      print('Products List being built');
-      return Products.fromJson(response.body);
+      return Products.fromJson(response.body, sort);
     }
     throw Exception('Failed to load post');
   }
 
-  static List<Product> sortBy(Sort algorithm) {
+  List<Product> sortBy(Sort algorithm) {
     switch(algorithm) {
       case Sort.name:
-        _byName();
+        sortedProducts.sort((a, b) => (a.name.compareTo(b.name)));
         break;
       case Sort.availability:
-        _byAvailability();
+        sortedProducts.sort((a, b) => (a.availability.compareTo(b.availability)));
         break;
     }
     return sortedProducts;
@@ -55,16 +56,15 @@ class Products {
   }
 
   static void _byName() {
-    print('Sort by name');
-    sortedProducts.sort((a, b) => (a.name.compareTo(b.name)));
+    
   }
 
   static void _byAvailability() {
-    print('Sort by availability');
-    sortedProducts.sort((a, b) => (a.availability.compareTo(b.availability)));
+    
   }
 
   printDebug() {
-    products.forEach((product) => print(product.printDebug()));
+    print(sortedProducts.length.toString());
+    sortedProducts.forEach((product) => print(product.printDebug()));
   }
 }

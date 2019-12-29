@@ -4,17 +4,19 @@ import 'package:url_launcher/url_launcher.dart';
 class Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        child: Align(
-            alignment: Alignment.bottomCenter,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-               FooterIcon(imagePath: 'assets/images/facebook.png', url: 'https://www.facebook.com/bbfarmky/',),
-               FooterIcon(imagePath: 'assets/images/twitter.png', url: 'https://twitter.com/bbfarmky',),
-               FooterIcon(imagePath: 'assets/images/instagram.png', url: 'https://www.instagram.com/bbfarmky/')
-              ],
-            )));
+    return 
+        Expanded(
+                  child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                 FooterIcon(imagePath: 'assets/images/facebook.png', url: 'https://www.facebook.com/bbfarmky/',),
+                 FooterIcon(imagePath: 'assets/images/twitter.png', url: 'https://twitter.com/bbfarmky',),
+                 FooterIcon(imagePath: 'assets/images/instagram.png', url: 'https://www.instagram.com/bbfarmky/')
+                ],
+              )),
+        );
   }
   
 }

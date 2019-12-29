@@ -20,6 +20,7 @@ class _HomeMenu extends State<HomeMenu> {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(top: 50),
@@ -31,15 +32,18 @@ class _HomeMenu extends State<HomeMenu> {
                 Column(
                   children: <Widget>[
                     Image.asset('assets/images/logo.png',
-                        height: 150.0, width: 150.0),
+                        height: height/5, width: height/5),
                     Container(
                         margin: EdgeInsets.all(18.0),
-                        child: Text(
-                          'Fresh, Local, and Naturally Grown!',
-                          style: TextStyle(
-                              color: Color.fromRGBO(252, 172, 25, 1),
-                              fontFamily: 'Lato',
-                              fontSize: 25.0),
+                        child: FittedBox(
+                          fit: BoxFit.fitWidth,
+                          child: Text(
+                            'Fresh, Local, and Naturally Grown!',
+                            style: TextStyle(
+                                color: Color.fromRGBO(252, 172, 25, 1),
+                                fontFamily: 'Lato',
+                                fontSize: 25.0),
+                          ),
                         )),
                     Row(
                       children: <Widget>[
@@ -127,11 +131,11 @@ class PopupMenu extends StatelessWidget {
       return Center(
         child: Container(
           alignment: Alignment(0.0, 0.0),
-          
           child: Container(
-            decoration: BoxDecoration (color: Colors.white, borderRadius: BorderRadius.all(Radius.circular(10))),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(10))),
             margin: EdgeInsets.symmetric(horizontal: 30),
-            
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -144,8 +148,10 @@ class PopupMenu extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     margin: EdgeInsets.only(right: 10, top: 10),
                     child: Container(
-                      child: Icon(Icons
-                          .close, size: 30,),
+                      child: Icon(
+                        Icons.close,
+                        size: 30,
+                      ),
                     ),
                     color: Colors.white,
                   ),
@@ -155,12 +161,11 @@ class PopupMenu extends StatelessWidget {
                     _launchURL("tel://5026001004");
                   },
                   child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Icon(Icons.phone),
                       Container(
-                        
                         child: Text('Call', style: TextStyle(fontSize: 20)),
                         padding: EdgeInsets.all(10),
                         color: Colors.white,
@@ -170,11 +175,11 @@ class PopupMenu extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    _launchURL('sms:+5026001004?body=');
+                    _launchURL('sms:+5026001004');
                   },
                   child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Icon(Icons.sms),
                       Container(
@@ -188,12 +193,12 @@ class PopupMenu extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     _launchURL(
-                        'mailto:c.chamberlain@bbfarmky.com?subject=Inquiry&body=<body>');
+                        'mailto:c.chamberlain@bbfarmky.com?subject=Inquiry');
                   },
                   child: Container(
                     child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Icon(Icons.email),
                         Text('Email', style: TextStyle(fontSize: 20)),

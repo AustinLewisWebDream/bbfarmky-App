@@ -7,7 +7,6 @@ class CompleteRoute extends StatelessWidget {
     return Scaffold( body: Center(
       child: Container(
         alignment: Alignment.center,
-        
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,

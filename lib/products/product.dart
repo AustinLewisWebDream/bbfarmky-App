@@ -64,7 +64,6 @@ class Product {
     print('Price: ' + this.price.toString());
     print('Availability: ' + this.availability);
     print('Sold By: ' + this.measurement[0]);
-
   }
 }
 
@@ -83,7 +82,6 @@ class ProductWidget extends StatefulWidget {
 class _ProductWidget extends State<ProductWidget> {
   final Function notifyParent;
   Product product;
-  String name;
   Cart cart = new Cart();
   Color backgroundColor = Colors.red;
   
@@ -105,9 +103,7 @@ class _ProductWidget extends State<ProductWidget> {
   @override
   Widget build(BuildContext context) {
     setState(() {
-      print('rebuilding the product widget');
      backgroundColor = _selectedColor(); 
-     name = product.name;
     });
     return GestureDetector(
           onTap: () {
@@ -132,7 +128,7 @@ class _ProductWidget extends State<ProductWidget> {
                     Container(
                         margin: EdgeInsets.all(5.0),
                         child: Text(
-                          name,
+                          product.name,
                           style: TextStyle(fontSize: 15.0),
                         )),
                     Container(
@@ -148,11 +144,8 @@ class _ProductWidget extends State<ProductWidget> {
                   children: <Widget>[
                     Container(
                         margin: EdgeInsets.all(5.0),
-                        child: Text('Variety', style: TextStyle(fontSize: 10.0))),
-                    Container(
-                        margin: EdgeInsets.all(5.0),
                         child: Text(product.variety,
-                            style: TextStyle(fontSize: 11.0))),
+                            style: TextStyle(fontSize: 12.0))),
                   ],
                 ),
               ),
@@ -162,11 +155,8 @@ class _ProductWidget extends State<ProductWidget> {
                   children: <Widget>[
                     Container(
                         margin: EdgeInsets.all(5.0),
-                        child: Text('Availability', style: TextStyle(fontSize: 10.0))),
-                    Container(
-                        margin: EdgeInsets.all(5.0),
                         child: Text(product.availability,
-                            style: TextStyle(fontSize: 11.0))),
+                            style: TextStyle(fontSize: 12.0))),
                   ],
                 ),
               ),
