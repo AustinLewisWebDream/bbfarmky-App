@@ -21,69 +21,28 @@ class ScheduleItem {
   String date;
   String city;
   String location;
-  int time;
-  String formattedTime;
-  String _rawDate;
+  String time;
 
   ScheduleItem.fromJson(Map<String, dynamic> jsonMap) {
-    this.id = jsonMap['id'];
-    final _fields = jsonMap['fields'];
-    this.date = _fields['Date'];
-    final cityList = _fields['City'];
-    this.location = _fields['Location'];
-    this.time = _fields['Time Frame'];
+    this.id = jsonMap['_id'];
+    this.date = jsonMap['date'];
+    this.city = jsonMap['city'];
+    this.location = jsonMap['location'];
+    this.time = jsonMap['timeFrame'];
 
-    if (this.date != null && this.date != '') {
-      this._rawDate = date;
-      formatDate();
-    } else
-      this.date = '';
+    print(this.time);
 
-    if (cityList == null)
-      this.city = '';
-    else
-      this.city = cityList[0];
-
+    if (this.city == null) this.city = '';
     if (this.location == null) this.location = '';
-    if (this.time == null) this.time = 7200;
+    if (this.time == null) this.time = '';
 
-    formatTime();
   }
-
-  void formatTime() {
-    int hours = int.parse(_rawDate.substring(11, 13)) - 4;
-    String minutes = _rawDate.substring(14, 16);
-
-    String cycle;
-    if (hours > 12) {
-      hours -= 12;
-      cycle = 'pm';
-    } else if (hours == 12) {
-      cycle = 'pm';
-    } else {
-      cycle = 'am';
-    }
-    formattedTime = (hours.toString() +
-        ':' +
-        minutes.padLeft(2, '0').padRight(2, '0') +
-        cycle);
-  }
-
+  
   void debugPrint() {
     print('ID: ' + this.id);
-    print('City: ' + this.city.toString());
+    print('City: ' + this.city);
     print('Location: ' + this.location);
     print('Date: ' + this.date);
-  }
-
-  void formatDate() {
-    // Input date: 2019-07-03T16:00:00.000Z
-    final strippedDate = date.substring(0, 10);
-    String year = strippedDate.substring(0, 4);
-    String month = months[int.parse(strippedDate.substring(5, 7)) - 1];
-    String day = strippedDate.substring(9, 10);
-
-    date = (day + ' ' + month + ' ' + year);
   }
 }
 
@@ -91,8 +50,7 @@ class ItemList {
   List<ScheduleItem> list = [];
 
   ItemList.fromJson(response) {
-    final _decoded = jsonDecode(response.body);
-    final _scheduleList = _decoded['records'];
+    final _scheduleList = jsonDecode(response.body);
     for (var i = 0; i < (_scheduleList.length); i++) {
       ScheduleItem newItem = ScheduleItem.fromJson(_scheduleList[i]);
       this.list.add(newItem);
@@ -102,8 +60,6 @@ class ItemList {
 
 class ScheduleItemWidget extends StatelessWidget {
   final ScheduleItem item;
-
-  // Vars - item.formattedTime, date, location
 
   ScheduleItemWidget({this.item});
   @override
@@ -132,7 +88,7 @@ class ScheduleItemWidget extends StatelessWidget {
                         )),
                     Container(
                         margin: EdgeInsets.all(5.0),
-                        child: Text(item.formattedTime,
+                        child: Text(item.time,
                             style: TextStyle(fontSize: 11.0))),
                   ],
                 ),

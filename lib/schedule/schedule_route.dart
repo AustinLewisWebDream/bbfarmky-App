@@ -41,7 +41,7 @@ class _ScheduleRoute extends State<ScheduleRoute> {
   }
 
   Future<ItemList> loadSchedule() async {
-    Response response = await get('https://api.airtable.com/v0/apptzTgBGMlsWmAE4/Schedule?maxRecords=100&view=Grid%20view', headers: {HttpHeaders.authorizationHeader: 'Bearer keyeIMUytOcC820fT'});
+    Response response = await get('https://app.bbfarmky.com/api/pickup', headers: {HttpHeaders.authorizationHeader: 'Bearer keyeIMUytOcC820fT'});
     if(response.statusCode == 200) {
       return ItemList.fromJson(response);
     } 

@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import '../cart.dart';
 
 class Product {
-  String id;
-  String name;
-  var price; // Double or Int
-  String priceString;
-  String availability;
+  String id; 
+  String name; 
+  var price; /// Double or Int
+  String availability; 
+  String measurement;
   String variety;
+
+  String priceString; 
   String category;
-  List measurement;
 
   Product(
       {this.id,
@@ -21,19 +22,16 @@ class Product {
       this.measurement
      });
 
-
-
   Product.fromJson(Map<String, dynamic> jsonMap) {
-    this.id = jsonMap['id'];
-    final _fields = jsonMap['fields'];
-    this.name = _fields['Name'];
-    this.price = _fields['Price'];
-    this.availability = _fields['Availability'];
-    this.variety = _fields['Variety'];
-    this.category = _fields['Category'];
-    this.measurement = _fields['Sold By'];
+    this.id = jsonMap['_id'];
+    this.name = jsonMap['name'];
+    this.price = jsonMap['price'];
+    this.availability = jsonMap['available'];
+    this.variety = jsonMap['variety'];
+    this.category = '';
+    this.measurement = jsonMap['measurement'];
 
-    if (this.measurement == null) this.measurement = [''];
+    if (this.measurement == null) this.measurement = '';
     if (this.name == null) this.name = '';
     
     if (this.availability == null) this.availability = '';

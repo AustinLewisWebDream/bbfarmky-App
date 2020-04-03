@@ -12,8 +12,7 @@ class Products {
   Products.fromJson(String jsonStr, Sort algorithm) {
     products = [];
     sortedProducts = [];
-    final _map = jsonDecode(jsonStr);
-    final _productsList = _map['records'];
+    final _productsList = jsonDecode(jsonStr);
     for (var i = 0; i < (_productsList.length); i++) {
       Product newProduct = Product.fromJson(_productsList[i]);
       if(productIsComplete(newProduct)){
@@ -26,9 +25,10 @@ class Products {
   
   static Future<Products> fetchProducts(sort) async {
     final response = await get(
-        'https://api.airtable.com/v0/apptzTgBGMlsWmAE4/Products?maxRecords=100&view=Grid%20view',
+        'https://app.bbfarmky.com/api/item',
         headers: {HttpHeaders.authorizationHeader: 'Bearer keyeIMUytOcC820fT'});
     if (response.statusCode == 200) {
+      print(response.body.toString());
       return Products.fromJson(response.body, sort);
     }
     throw Exception('Failed to load post');
@@ -47,11 +47,6 @@ class Products {
   }
 
   bool productIsComplete(Product product) {
-    if(product.name == '' || product.price == 0)
-      return false;
-    if(product.availability != 'Available' && product.availability != 'Coming Soon!') {
-      return false;
-    }
     return true;
   }
 
