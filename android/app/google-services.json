@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "653905150925",
+    "firebase_url": "https://bbfarm-c49b9.firebaseio.com",
+    "project_id": "bbfarm-c49b9",
+    "storage_bucket": "bbfarm-c49b9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:653905150925:android:0e9c2c5358d6e91fb6ba84",
+        "android_client_info": {
+          "package_name": "com.bbfarmky.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "653905150925-2ncrlu0lorodeeq9i5jppnmrbkoh3enm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlJkKBX8RJ-zNA0kLOGQjk2aV_W1si7Hs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "653905150925-2ncrlu0lorodeeq9i5jppnmrbkoh3enm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "653905150925-i0jaod20keee7301f106ilf20kgfqm26.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.bbfarmky.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

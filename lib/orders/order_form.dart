@@ -85,11 +85,9 @@ class _OrderForm extends State<OrderForm> {
             customerName: nameController.text, products: cart.getProductQuantityMap(), contactInfo: contactController.text)
         .getJson();
 
-    print(json.toString());
-
     Response response =
-    // https://app.bbfarmky.com/order
-        await post('https://app.bbfarmky.com/api/order', headers: {HttpHeaders.contentTypeHeader: 'application/json'}, body: json);
+    // 'https://app.bbfarmky.com/api/order'
+        await post('http://10.0.2.2:3001/api/order', headers: {HttpHeaders.contentTypeHeader: 'application/json'}, body: json);
         print(response.statusCode.toString());
 
     if (response.statusCode == 200) {

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import '../cart.dart';
 
@@ -54,7 +55,7 @@ class Product {
     else
       this.priceString = '\$' + this.priceString.toString() + '.00';
 
-    this.priceString += '/' + this.measurement[0];
+    this.priceString += '/' + this.measurement;
   }
 
   printDebug() {
@@ -125,9 +126,10 @@ class _ProductWidget extends State<ProductWidget> {
                   children: <Widget>[
                     Container(
                         margin: EdgeInsets.all(5.0),
-                        child: Text(
+                        child: AutoSizeText(
                           product.name,
                           style: TextStyle(fontSize: 15.0),
+                          maxLines: 1
                         )),
                     Container(
                         margin: EdgeInsets.all(5.0),

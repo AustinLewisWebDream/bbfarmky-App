@@ -25,7 +25,8 @@ class Products {
   
   static Future<Products> fetchProducts(sort) async {
     final response = await get(
-        'https://app.bbfarmky.com/api/item',
+      //'https://app.bbfarmky.com/api/item'
+        'http://10.0.2.2:3001/api/item',
         headers: {HttpHeaders.authorizationHeader: 'Bearer keyeIMUytOcC820fT'});
     if (response.statusCode == 200) {
       print(response.body.toString());

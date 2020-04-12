@@ -13,6 +13,7 @@ class Cart {
 
   void empty() {
     cart = [];
+    _cart.clear();
   }
 
   getProductQuantityMap() {
