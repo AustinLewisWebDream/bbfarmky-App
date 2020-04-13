@@ -193,7 +193,7 @@ class PopupMenu extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     _launchURL(
-                        'mailto:c.chamberlain@bbfarmky.com?subject=Inquiry');
+                        'mailto:info@bbfarmky.com?subject=Inquiry');
                   },
                   child: Container(
                     child: Row(

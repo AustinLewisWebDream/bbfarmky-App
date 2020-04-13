@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 
 class ScheduleItem {
   final List<String> months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
+    "Jan.",
+    "Feb.",
+    "Mar.",
+    "Apr.",
     "May",
-    "Jun",
+    "Jun.",
     "July",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec"
+    "Aug.",
+    "Sep.",
+    "Oct.",
+    "Nov.",
+    "Dec."
   ];
 
   String id;
@@ -25,10 +25,10 @@ class ScheduleItem {
 
   ScheduleItem.fromJson(Map<String, dynamic> jsonMap) {
     this.id = jsonMap['_id'];
-    this.date = jsonMap['date'];
+    this.date = formatDate(jsonMap['date']);
     this.city = jsonMap['city'];
     this.location = jsonMap['location'];
-    this.time = jsonMap['timeFrame'];
+    this.time = jsonMap['time'];
 
     print(this.time);
 
@@ -38,6 +38,19 @@ class ScheduleItem {
 
   }
   
+  String formatDate(String date) {
+    String year, month, day;
+    List<String> splitDate = date.split('-');
+    year = splitDate[0];
+    month = splitDate[1];
+    day = splitDate[2];
+    month =  months[int.parse(month) - 1];
+
+    // Ex. Nov 19, 2020
+    String formatted = month + " " + day + ", " + year;
+    return formatted;  
+  }
+
   void debugPrint() {
     print('ID: ' + this.id);
     print('City: ' + this.city);
@@ -72,7 +85,7 @@ class ScheduleItemWidget extends StatelessWidget {
         color: Colors.white,
         margin: EdgeInsets.all(5.0),
         child: Container(
-          margin: EdgeInsets.all(10.0),
+          margin: EdgeInsets.all(8.0),
 
           child: Row(
             children: <Widget>[
@@ -97,6 +110,11 @@ class ScheduleItemWidget extends StatelessWidget {
                 flex: 3,
                 child: Column(
                   children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.all(5.0),
+                      child: Text(item.city, style: TextStyle(fontSize: 11.0),),
+                    ),
+
                     Container(
                         margin: EdgeInsets.all(5.0),
                         child: Text(item.location,

@@ -42,7 +42,8 @@ class _ScheduleRoute extends State<ScheduleRoute> {
 
   Future<ItemList> loadSchedule() async {
     // https://app.bbfarmky.com/api/pickup
-    Response response = await get('http://10.0.2.2:3001/api/pickup', headers: {HttpHeaders.authorizationHeader: 'Bearer keyeIMUytOcC820fT'});
+    // Response response = await get('http://10.0.2.2:3001/api/pickup', headers: {HttpHeaders.authorizationHeader: 'Bearer keyeIMUytOcC820fT'});
+    Response response = await get('https://app.bbfarmky.com/api/pickup', headers: {HttpHeaders.authorizationHeader: 'Bearer keyeIMUytOcC820fT'});
     if(response.statusCode == 200) {
       return ItemList.fromJson(response);
     } 

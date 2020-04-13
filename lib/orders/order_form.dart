@@ -86,9 +86,10 @@ class _OrderForm extends State<OrderForm> {
         .getJson();
 
     Response response =
-    // 'https://app.bbfarmky.com/api/order'
-        await post('http://10.0.2.2:3001/api/order', headers: {HttpHeaders.contentTypeHeader: 'application/json'}, body: json);
-        print(response.statusCode.toString());
+        // await post('http://10.0.2.2:3001/api/order', headers: {HttpHeaders.contentTypeHeader: 'application/json'}, body: json);
+        // print(response.statusCode.toString());
+        await post('https://app.bbfarmky.com/api/order', headers: {HttpHeaders.contentTypeHeader: 'application/json'}, body: json);
+        // print(response.statusCode.toString());
 
     if (response.statusCode == 200) {
       cart.empty();
