@@ -2,8 +2,8 @@
     package="com.bbfarmky.app">
     <uses-permission android:name="android.permission.INTERNET" />
     <application
-        android:name="io.flutter.app.FlutterApplication"
-        android:label="bbfarmky"
+        android:name=".Application"
+        android:label="Bluegrass Blessings"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

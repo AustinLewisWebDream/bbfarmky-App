@@ -7,6 +7,26 @@ import 'package:bbfarmky/products/product_route.dart';
 import 'package:bbfarmky/schedule/schedule_route.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+
+
+
+Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) {
+  print('Background message Recieved' + message.toString());
+  if (message.containsKey('data')) {
+    // Handle data message
+    final dynamic data = message['data'];
+    return data;
+  }
+
+  if (message.containsKey('notification')) {
+    // Handle notification message
+    final dynamic notification = message['notification'];
+    return notification;
+  }
+
+  // Or do other work.
+}
 
 class HomeMenu extends StatefulWidget {
   @override
@@ -17,7 +37,43 @@ class HomeMenu extends StatefulWidget {
 
 class _HomeMenu extends State<HomeMenu> {
   bool contactMenuOpen = false;
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  @override
+  void initState() {
+    super.initState();
+    _firebaseMessaging.autoInitEnabled().then((bool enabled) => print(enabled));
+    _firebaseMessaging.setAutoInitEnabled(true).then((_) => _firebaseMessaging.autoInitEnabled().then((bool enabled) => print(enabled)));
+    _firebaseMessaging.configure(
+      onBackgroundMessage: myBackgroundMessageHandler,
+        onMessage: (Map<String, dynamic> message) async {
+          print('Onmessage...');
+          print("onMessage: $message");
+        },
+        
+        onLaunch: (Map<String, dynamic> message) async {
+          print('On Launch');
+          print("onLaunch: $message");
 
+        },
+        onResume: (Map<String, dynamic> message) async {
+          print('on resume');
+          print("onResume: $message");
+        },
+      );
+      _firebaseMessaging.requestNotificationPermissions(
+          const IosNotificationSettings(sound: true, badge: true, alert: true));
+      _firebaseMessaging.onIosSettingsRegistered
+          .listen((IosNotificationSettings settings) {
+        print("Settings registered: $settings");
+      });
+      _firebaseMessaging.onTokenRefresh.listen((data) {
+        print('Refresh Token: $data');
+      });
+      _firebaseMessaging.getToken().then((String token) {
+        assert(token != null);
+      });
+  
+  }
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
