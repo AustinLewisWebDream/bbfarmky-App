@@ -1,7 +1,11 @@
+import 'dart:math';
+
+import '../storage/store_notification.dart';
 import 'package:bbfarmky/about/about_route.dart';
-import 'package:bbfarmky/coming_soon.dart';
 import 'package:bbfarmky/home/footer.dart';
 import 'package:bbfarmky/home/menu_item.dart';
+import 'package:bbfarmky/my_widgets/Badge.dart';
+import 'package:bbfarmky/news/NewsRoute.dart';
 import 'package:bbfarmky/orders/orders_route.dart';
 import 'package:bbfarmky/products/product_route.dart';
 import 'package:bbfarmky/schedule/schedule_route.dart';
@@ -11,17 +15,25 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 
 
 
+
 Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) {
   print('Background message Recieved' + message.toString());
   if (message.containsKey('data')) {
     // Handle data message
     final dynamic data = message['data'];
+    var notification = message['notification'];
+    var title = notification['title'];
+    var body = notification['body'];
+    FirebaseNotifications.add(FirebaseNotification(body: body, title: title, id: Random().nextInt(1000)));
     return data;
   }
 
   if (message.containsKey('notification')) {
     // Handle notification message
-    final dynamic notification = message['notification'];
+    var notification = message['notification'];
+    var title = notification['title'];
+    var body = notification['body'];
+    FirebaseNotifications.add(FirebaseNotification(body: body, title: title, id: Random().nextInt(1000)));
     return notification;
   }
 
@@ -36,11 +48,15 @@ class HomeMenu extends StatefulWidget {
 }
 
 class _HomeMenu extends State<HomeMenu> {
+  Future<int> numNotifications;
   bool contactMenuOpen = false;
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+
   @override
   void initState() {
     super.initState();
+    // firebaseNotificationTest();
+    // FirebaseNotifications.add(FirebaseNotification(body: 'This is the third test of the FirebaseMessaging System. From here, we should be able to successfully delete one of these notifications and it show up correctly', title: 'Title Test Num 3', id: Random().nextInt(1000)));
     _firebaseMessaging.autoInitEnabled().then((bool enabled) => print(enabled));
     _firebaseMessaging.setAutoInitEnabled(true).then((_) => _firebaseMessaging.autoInitEnabled().then((bool enabled) => print(enabled)));
     _firebaseMessaging.configure(
@@ -48,16 +64,27 @@ class _HomeMenu extends State<HomeMenu> {
         onMessage: (Map<String, dynamic> message) async {
           print('Onmessage...');
           print("onMessage: $message");
+          var notification = message['notification'];
+          var title = notification['title'];
+          var body = notification['body'];
+          FirebaseNotifications.add(FirebaseNotification(body: body, title: title, id: Random().nextInt(1000)));
         },
         
         onLaunch: (Map<String, dynamic> message) async {
           print('On Launch');
           print("onLaunch: $message");
-
+          var notification = message['notification'];
+          var title = notification['title'];
+          var body = notification['body'];
+          FirebaseNotifications.add(FirebaseNotification(body: body, title: title, id: Random().nextInt(1000)));
         },
         onResume: (Map<String, dynamic> message) async {
           print('on resume');
           print("onResume: $message");
+          var notification = message['notification'];
+          var title = notification['title'];
+          var body = notification['body'];
+          FirebaseNotifications.add(FirebaseNotification(body: body, title: title, id: Random().nextInt(1000)));
         },
       );
       _firebaseMessaging.requestNotificationPermissions(
@@ -72,7 +99,9 @@ class _HomeMenu extends State<HomeMenu> {
       _firebaseMessaging.getToken().then((String token) {
         assert(token != null);
       });
-  
+      setState(() {
+        this.numNotifications = FirebaseNotifications.getNumNotifications();
+      });
   }
   @override
   Widget build(BuildContext context) {
@@ -129,11 +158,26 @@ class _HomeMenu extends State<HomeMenu> {
                         Expanded(
                           child: Column(
                             children: <Widget>[
-                              MenuItem(
-                                itemText: 'News',
-                                imagePath: 'assets/images/news.png',
-                                route: ComingSoon(),
-                              ),
+                              Stack(children: <Widget>[
+                                MenuItem(
+                                  itemText: 'News',
+                                  imagePath: 'assets/images/news.png',
+                                  route: NewsRoute(),
+                                ),
+                                FutureBuilder<int>(
+                                  future: numNotifications,
+                                  builder: (context, snapshot) {
+                                    if(snapshot.hasData || snapshot.data != null) {
+                                      if(snapshot.data == 0) {return Container();}
+                                      print('This is the snapshot data: ' + snapshot.data.toString());
+                                      return Badge(snapshot.data);
+                                    }
+                                    else {
+                                      return Container();
+                                    }
+                                  },  
+                                )
+                              ],),
                               MenuItem(
                                 itemText: 'Contact',
                                 imagePath: 'assets/images/contact.png',
@@ -173,6 +217,8 @@ class _HomeMenu extends State<HomeMenu> {
       contactMenuOpen = true;
     });
   }
+
+
 }
 
 class PopupMenu extends StatelessWidget {
@@ -231,7 +277,7 @@ class PopupMenu extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    _launchURL('sms:+5026001004');
+                    _launchURL('sms:(502)600-1004');
                   },
                   child: Row(
                     mainAxisSize: MainAxisSize.min,

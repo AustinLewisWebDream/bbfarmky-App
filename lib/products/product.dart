@@ -31,6 +31,7 @@ class Product {
     this.variety = jsonMap['variety'];
     this.category = '';
     this.measurement = jsonMap['measurement'];
+    
 
     if (this.measurement == null) this.measurement = '';
     if (this.name == null) this.name = '';
@@ -39,13 +40,14 @@ class Product {
     if (this.variety == null) this.variety = '';
     if (this.category == null) this.category = '';
     if (this.price == null) this.price = 0;
-    if (this.price != 0) this.formatPrice();
+    this.formatPrice();
   }
 
   void formatPrice() {
     // Possible inputs 5, 5.5, 0.5, 5.55
     // Convert price to a string
     this.priceString = price.toString();
+    print('This is the value of the priceString var: ' + priceString.toString());
 
     // Check if length is equal to correct length (4 characters)
     if(this.priceString.length == 4) 

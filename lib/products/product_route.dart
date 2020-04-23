@@ -74,11 +74,14 @@ class _ProductsRoute extends State<ProductsRoute> {
 
   Widget buildProducts(BuildContext context) {
     if(loading) return LoadingIndicator();
-    else
+    else {
+      print(products.toString());
       return ListView(
                 children: products
                     .map((element) => ProductWidget(element, notifyCartChange))
                     .toList());
+    }
+
   }
 
   Widget buildChildren(BuildContext context) {
